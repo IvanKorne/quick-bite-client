@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import FormHeader from "../FormHeader";
 
 const formSchema = z.object({
   email: z.string().optional(),
@@ -23,6 +23,15 @@ const formSchema = z.object({
   city: z.string().min(1, "City is required"),
   country: z.string().min(1, "Country is required"),
 });
+
+const formFields: {
+  name: "addressLine1" | "city" | "country";
+  label: string;
+}[] = [
+  { name: "addressLine1", label: "Address Line 1" },
+  { name: "city", label: "City" },
+  { name: "country", label: "Country" },
+];
 
 type UserFormSchema = z.infer<typeof formSchema>;
 type Props = {
@@ -46,12 +55,11 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
         onSubmit={form.handleSubmit(onSave)}
         className="space-y-4 rounded-lg bg-gray-50 md:p-10"
       >
-        <div>
-          <h1 className="text-2xl font-bold">Change User Profile</h1>
-          <FormDescription>
-            View and update your user profile here!
-          </FormDescription>
-        </div>
+        <FormHeader
+          title="Change User Profile"
+          desc=" View and update your user profile here!"
+        />
+
         <FormField
           control={form.control}
           name="email"
@@ -78,45 +86,22 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
           )}
         />
         <div className="flex flex-col gap-4 md:flex-row">
-          <FormField
-            control={form.control}
-            name="addressLine1"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Address Line 1</FormLabel>
-                <FormControl>
-                  <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Country</FormLabel>
-                <FormControl>
-                  <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {formFields.map((field, index) => (
+            <FormField
+              key={index}
+              control={form.control}
+              name={field.name}
+              render={({ field: inputField }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>{field.label}</FormLabel>
+                  <FormControl>
+                    <Input {...inputField} className="bg-white" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
         </div>
         {isLoading ? (
           <LoadingButton />
