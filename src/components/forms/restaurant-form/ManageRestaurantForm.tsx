@@ -56,7 +56,39 @@ const ManageRestaurantForm = ({ onSave, isLoading }: ManageRestaurantProps) => {
     },
   });
 
-  const onSubmit = (formDataJSON: RestaurantFormData) => {};
+  const onSubmit = (formDataJSON: RestaurantFormData) => {
+    console.log("josn", formDataJSON);
+    const formData = new FormData();
+
+    formData.append("restaurantName", formDataJSON.restaurantName);
+    formData.append("city", formDataJSON.city);
+    formData.append("country", formDataJSON.country);
+
+    formData.append(
+      "deliveryPrice",
+      (formDataJSON.deliveryPrice * 100).toString()
+    );
+    formData.append(
+      "estimatedDeliveryTime",
+      formDataJSON.estimatedDeliveryTime.toString()
+    );
+    formDataJSON.cuisines.forEach((cuisine, index) => {
+      formData.append(`cuisines[${index}]`, cuisine);
+    });
+    formDataJSON.menuItems.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name);
+      formData.append(
+        `menuItems[${index}][price]`,
+        (menuItem.price * 100).toString()
+      );
+    });
+
+    if (formDataJSON.imageFile) {
+      formData.append(`imageFile`, formDataJSON.imageFile);
+    }
+
+    onSave(formData);
+  };
 
   return (
     <Form {...form}>
