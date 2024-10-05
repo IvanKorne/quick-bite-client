@@ -8,10 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const ImageSection = () => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
 
+  const existingImageUrl = watch("imageUrl");
   return (
     <div className="space-y-2">
       <FormHeader
@@ -19,6 +21,14 @@ const ImageSection = () => {
         desc="Add an image that will represent your restaurant!"
       />
       <div className="flex flex-col gap-8 md:w-[50%]">
+        {existingImageUrl && (
+          <AspectRatio ratio={16 / 9}>
+            <img
+              className="object-cover rounded-md size-full"
+              src={existingImageUrl}
+            />
+          </AspectRatio>
+        )}
         <FormField
           control={control}
           name="imageFile"
