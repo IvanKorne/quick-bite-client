@@ -1,4 +1,4 @@
-import { Restaurant } from "@/types/user";
+import { Restaurant } from "@/types/restaurant";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
@@ -17,7 +17,7 @@ export const useGetRestaurant = () => {
       },
     });
     if (!response.ok) {
-      throw new Error("Failed to create restaurant");
+      throw new Error("Failed to get restaurant");
     }
 
     return response.json();
@@ -65,7 +65,7 @@ export const useCreateRestaurant = () => {
   }
 
   if (error) {
-    toast.error("Unable to update restaurant");
+    toast.error("Unable to create restaurant");
   }
 
   return { createRestaurant, isLoading };
