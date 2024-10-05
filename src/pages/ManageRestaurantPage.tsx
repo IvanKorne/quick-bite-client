@@ -1,4 +1,8 @@
-import { useCreateRestaurant, useGetRestaurant } from "@/api/myRestaurantApi";
+import {
+  useCreateRestaurant,
+  useGetRestaurant,
+  useUpdateRestaurant,
+} from "@/api/myRestaurantApi";
 import CustomLoader from "@/components/CustomLoader";
 import ManageRestaurantForm from "@/components/forms/restaurant-form/ManageRestaurantForm";
 
@@ -8,13 +12,16 @@ const ManageRestaurantPage = () => {
   const { currentRestaurant, isLoading: isGettingRestaurant } =
     useGetRestaurant();
 
+  const { updateRestaurant, isLoading: isUpdateLoading } =
+    useUpdateRestaurant();
+
   if (isGettingRestaurant) {
     return <CustomLoader />;
   }
   return (
     <ManageRestaurantForm
-      onSave={createRestaurant}
-      isLoading={isCreatingRestaurant}
+      onSave={currentRestaurant ? updateRestaurant : createRestaurant}
+      isLoading={isCreatingRestaurant || isUpdateLoading}
       restaurant={currentRestaurant!}
     />
   );
