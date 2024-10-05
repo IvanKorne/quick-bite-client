@@ -62,7 +62,7 @@ const SearchBar = ({
         <Search
           strokeWidth={2.5}
           size={30}
-          className="hidden ml-1 text-orange-500 md:block"
+          className="hidden ml-1 text-amber-500 md:block"
         />
         <FormField
           control={form.control}
@@ -88,7 +88,7 @@ const SearchBar = ({
         >
           Reset
         </Button>
-        <Button type="submit" className="bg-orange-500 rounded-full">
+        <Button type="submit" className="bg-amber-500 rounded-full">
           Search
         </Button>
       </form>

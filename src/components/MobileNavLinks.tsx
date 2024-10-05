@@ -16,7 +16,7 @@ const MobileNavLinks = () => {
         <Link
           to={link.link}
           key={link.name}
-          className="flex items-center font-bold bg-white hover:text-orange-500"
+          className="flex items-center font-bold bg-white hover:text-amber-500"
         >
           {link.name}
         </Link>

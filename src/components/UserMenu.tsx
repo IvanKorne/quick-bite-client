@@ -20,14 +20,14 @@ const UsernameMenu = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-2 px-3 font-bold hover:text-orange-500">
-        <CircleUserRound className="text-orange-500" />
+      <DropdownMenuTrigger className="flex items-center gap-2 px-3 font-bold hover:text-amber-500">
+        <CircleUserRound className="text-amber-500" />
         {user?.email}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {menuItems.map((item, index) => (
           <DropdownMenuItem key={index}>
-            <Link to={item.to} className="font-bold hover:text-orange-500">
+            <Link to={item.to} className="font-bold hover:text-amber-500">
               {item.label}
             </Link>
           </DropdownMenuItem>
@@ -36,7 +36,7 @@ const UsernameMenu = () => {
         <DropdownMenuItem>
           <Button
             onClick={() => logout()}
-            className="flex flex-1 font-bold bg-orange-500"
+            className="flex flex-1 font-bold bg-amber-500"
           >
             Log Out
           </Button>
