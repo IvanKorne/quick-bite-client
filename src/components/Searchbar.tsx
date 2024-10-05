@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   searchQuery: z.string({
@@ -14,16 +15,31 @@ const formSchema = z.object({
 
 export type SearchForm = z.infer<typeof formSchema>;
 
-type Props = {
+type SearchBarProps = {
   onSubmit: (formData: SearchForm) => void;
   placeholder: string;
   onReset?: () => void;
+  searchQuery?: string;
 };
 
-const SearchBar = ({ onSubmit, onReset, placeholder }: Props) => {
+const SearchBar = ({
+  onSubmit,
+  onReset,
+  placeholder,
+  searchQuery,
+}: SearchBarProps) => {
   const form = useForm<SearchForm>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      searchQuery,
+    },
   });
+
+  useEffect(() => {
+    form.reset({
+      searchQuery,
+    });
+  }, [form, searchQuery]);
 
   const handleReset = () => {
     form.reset({
