@@ -1,7 +1,7 @@
 import { useSearchRestaurants } from "@/api/restaurantApi";
 import SearchResultsInfo from "../components/SearchResultsInfo";
 import CustomLoader from "@/components/CustomLoader";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SearchResultsCard from "@/components/SearchResultsCard";
 import { useState } from "react";
 import SearchBar, { SearchForm } from "@/components/Searchbar";
@@ -63,7 +63,19 @@ const SearchPage = () => {
   }
 
   if (!results?.data || !city) {
-    return <span>No results found</span>;
+    return (
+      <div className="flex flex-col items-center justify-center h-full text-center">
+        <h2 className="text-2xl font-semibold">No Results Found</h2>
+        <p className="mt-2 text-gray-600">
+          Sorry, we couldn't find any restaurants matching your search.
+        </p>
+        <div className="mt-4">
+          <Link to="/" className="text-blue-500 hover:underline">
+            Go back to the homepage
+          </Link>
+        </div>
+      </div>
+    );
   }
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">

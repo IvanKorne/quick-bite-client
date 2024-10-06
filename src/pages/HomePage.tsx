@@ -16,7 +16,9 @@ const HomePage = () => {
         <h1 className="text-5xl font-bold tracking-tight text-amber-600 ">
           Treat yourself with a meal today
         </h1>
-        <span className="text-xl">Food is just one click away!</span>
+        <span className="text-xl font-semibold">
+          Food is just one click away!
+        </span>
         <Searchbar
           placeholder={"Search by city or town!"}
           onSubmit={handleSearch}
