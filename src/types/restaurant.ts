@@ -3,6 +3,9 @@ export type MenuItem = {
   name: string;
   price: number;
 };
+export type CartItem = MenuItem & {
+  quantity: number;
+};
 
 export type Restaurant = {
   _id: string;

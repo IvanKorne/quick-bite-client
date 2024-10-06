@@ -1,4 +1,4 @@
-import { Auth0Provider } from "@auth0/auth0-react";
+import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +13,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     throw new Error("Unable to authorize user");
   }
 
-  const onRedirectCallback = async () => {
-    navigate("/auth-callback");
+  const onRedirectCallback = async (appState?: AppState) => {
+    navigate(appState?.returnTo || "/auth-callback");
   };
   return (
     <Auth0Provider

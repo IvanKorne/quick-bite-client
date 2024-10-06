@@ -31,7 +31,7 @@ const HomePage = () => {
             Order whenever you wish!
           </span>
           <span>
-            QuickBite sepcializes in personalized recommendations and faster
+            QuickBites sepcializes in personalized recommendations and faster
             ordering
           </span>
           <img src={logo} alt="logo" />

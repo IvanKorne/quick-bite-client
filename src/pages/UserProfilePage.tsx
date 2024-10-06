@@ -15,6 +15,8 @@ const UserProfilePage = () => {
   }
   return (
     <UserProfileForm
+      title="Change User Profile"
+      buttonText="Submit"
       onSave={updateUser}
       isLoading={isUpdatingUser}
       currentUser={currentUser}

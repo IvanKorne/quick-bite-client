@@ -10,7 +10,7 @@ const Header = () => {
           className="text-3xl font-bold tracking-tight text-amber-500"
           to="/"
         >
-          QuickBite
+          QuickBites
         </Link>
         <div className="md:hidden">
           <MobileNav />
