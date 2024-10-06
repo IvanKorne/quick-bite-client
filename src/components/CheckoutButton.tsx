@@ -11,9 +11,14 @@ import { useGetUser } from "@/api/myUserApi";
 type CheckoutButtonProps = {
   disabled: boolean;
   handleCheckout: (formData: UserFormSchema) => void;
+  isLoading: boolean;
 };
 
-const CheckoutButton = ({ disabled, handleCheckout }: CheckoutButtonProps) => {
+const CheckoutButton = ({
+  disabled,
+  handleCheckout,
+  isLoading,
+}: CheckoutButtonProps) => {
   const {
     isAuthenticated,
     isLoading: isAuthenticating,
@@ -39,7 +44,7 @@ const CheckoutButton = ({ disabled, handleCheckout }: CheckoutButtonProps) => {
     );
   }
 
-  if (isAuthenticating || !currentUser) {
+  if (isAuthenticating || !currentUser || isLoading) {
     return <LoadingButton />;
   }
 
