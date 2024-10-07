@@ -1,10 +1,18 @@
 import { Order } from "@/types/order";
+import { Progress } from "./ui/progress";
+import { ORDER_STATUS } from "@/data/orderStatus";
 
 type OrderStatusHeaderProps = {
   order: Order;
 };
 
 const OrderStatusHeader = ({ order }: OrderStatusHeaderProps) => {
+  const getOrderInfo = () => {
+    return (
+      ORDER_STATUS.find((ord) => ord.value === order.status) || ORDER_STATUS[0]
+    );
+  };
+
   const getExpectedDelivery = () => {
     const createdAt = new Date(order.createdAt);
     createdAt.setMinutes(
@@ -18,12 +26,17 @@ const OrderStatusHeader = ({ order }: OrderStatusHeaderProps) => {
 
     return `${hours}:${formattedMinutes}`;
   };
+
   return (
     <div>
       <h1 className="flex flex-col gap-5 text-4xl font-bold tracking-tight md:flex-row md:justify-between">
-        <span>Order Status: {order.status}</span>
+        <span>Order Status: {getOrderInfo().label}</span>
         <span>Expected by: {getExpectedDelivery()}</span>
       </h1>
+      <Progress
+        className="animate-pulse"
+        value={getOrderInfo().progressValue}
+      />
     </div>
   );
 };
