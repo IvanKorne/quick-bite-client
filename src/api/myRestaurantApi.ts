@@ -1,3 +1,4 @@
+import { Order } from "@/types/order";
 import { Restaurant } from "@/types/restaurant";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
@@ -29,6 +30,32 @@ export const useGetRestaurant = () => {
   );
 
   return { currentRestaurant, isLoading };
+};
+
+export const useGetRestaurantOrders = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const getRestaurantOrdersRequest = async (): Promise<Order[]> => {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${API_BASE_URL}/api/my/restaurant/orders`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to get restaurant orders");
+    }
+
+    return response.json();
+  };
+
+  const { data: restaurantOrders, isLoading } = useQuery(
+    "fetchMyRestaurantOrders",
+    getRestaurantOrdersRequest
+  );
+
+  return { restaurantOrders, isLoading };
 };
 
 export const useCreateRestaurant = () => {
