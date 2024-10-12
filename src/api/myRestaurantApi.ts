@@ -137,3 +137,54 @@ export const useUpdateRestaurant = () => {
 
   return { updateRestaurant, isLoading };
 };
+
+type OrderStatusRequestProps = {
+  orderId: string;
+  status: string;
+};
+
+export const useUpdateOrderStatus = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const updateOrderStatusRequest = async ({
+    status,
+    orderId,
+  }: OrderStatusRequestProps) => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(
+      `${API_BASE_URL}/api/my/restaurant/order/${orderId}/status`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: status,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update order status");
+    }
+
+    return response.json();
+  };
+
+  const {
+    mutate: updateOrderStatus,
+    isLoading,
+    isSuccess,
+    error,
+    reset,
+  } = useMutation(updateOrderStatusRequest);
+
+  if (isSuccess) {
+    toast.success("Order status updated!");
+  }
+
+  if (error) {
+    toast.error("Unable to update order status");
+    reset();
+  }
+
+  return { updateOrderStatus, isLoading };
+};

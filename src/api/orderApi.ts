@@ -25,9 +25,10 @@ export const useGetOrders = () => {
   const getOrdersRequest = async (): Promise<Order[]> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/order`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/restaurant/orders`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
     });
     if (!response.ok) {
@@ -39,7 +40,10 @@ export const useGetOrders = () => {
 
   const { data: orders, isLoading } = useQuery(
     "fetchMyOrders",
-    getOrdersRequest
+    getOrdersRequest,
+    {
+      refetchInterval: 5000,
+    }
   );
 
   return { orders, isLoading };
