@@ -88,11 +88,15 @@ export const useCreateRestaurant = () => {
   } = useMutation(createRestaurantRequest);
 
   if (isSuccess) {
-    toast.success("Restaurant created!");
+    toast.success("Restaurant created!", {
+      duration: 1500,
+    });
   }
 
   if (error) {
-    toast.error("Unable to create restaurant");
+    toast.error("Unable to create restaurant", {
+      duration: 1500,
+    });
   }
 
   return { createRestaurant, isLoading };
@@ -128,11 +132,15 @@ export const useUpdateRestaurant = () => {
   } = useMutation(updateRestaurantRequest);
 
   if (isSuccess) {
-    toast.success("Restaurant updated!");
+    toast.success("Restaurant updated!", {
+      duration: 1500,
+    });
   }
 
   if (error) {
-    toast.error("Unable to update restaurant");
+    toast.error("Unable to update restaurant", {
+      duration: 1500,
+    });
   }
 
   return { updateRestaurant, isLoading };
@@ -157,8 +165,9 @@ export const useUpdateOrderStatus = () => {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
         },
-        body: status,
+        body: JSON.stringify({ status }),
       }
     );
 
@@ -178,11 +187,15 @@ export const useUpdateOrderStatus = () => {
   } = useMutation(updateOrderStatusRequest);
 
   if (isSuccess) {
-    toast.success("Order status updated!");
+    toast.success("Order status updated!", {
+      duration: 1500,
+    });
   }
 
   if (error) {
-    toast.error("Unable to update order status");
+    toast.error("Unable to update order status", {
+      duration: 1500,
+    });
     reset();
   }
 

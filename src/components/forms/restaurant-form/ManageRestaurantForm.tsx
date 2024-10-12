@@ -92,7 +92,6 @@ const ManageRestaurantForm = ({
   }, [form, restaurant]);
 
   const onSubmit = (formDataJSON: RestaurantFormData) => {
-    console.log("josn", formDataJSON);
     const formData = new FormData();
 
     formData.append("restaurantName", formDataJSON.restaurantName);

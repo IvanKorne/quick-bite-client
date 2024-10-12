@@ -25,7 +25,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
   }, [order.status]);
 
   const handleStatusChange = async (status: OrderStatus) => {
-    await updateOrderStatus({ orderId: order._id as string, status });
+    await updateOrderStatus({ orderId: order._id as string, status: status });
     setStatus(status);
   };
   const getTime = () => {
