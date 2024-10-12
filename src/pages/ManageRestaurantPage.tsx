@@ -25,7 +25,7 @@ const ManageRestaurantPage = () => {
     return <CustomLoader />;
   }
   return (
-    <Tabs defaultValue="orders">
+    <Tabs defaultValue="manage-restaurant">
       <TabsList>
         <TabsTrigger value="orders">Orders</TabsTrigger>
         <TabsTrigger value="manage-restaurant">Manage Restaurant</TabsTrigger>
